@@ -113,6 +113,7 @@ const (
 	pathDNS                             = "/dns"
 	pathHTTP                            = "/http"
 	pathEmail                           = "/email"
+	pathRekey                           = "/rekey"
 )
 
 // CertificateRequest requests a new certificate based. The HVCA API is
@@ -122,7 +123,8 @@ const (
 func (c *Client) CertificateRequest(
 	ctx context.Context,
 	req *Request,
-) (*big.Int, error) {
+) (*string, error) {
+
 	var r, err = c.makeRequest(
 		ctx,
 		endpointCertificates,
@@ -135,17 +137,12 @@ func (c *Client) CertificateRequest(
 	}
 
 	var snString string
-	snString, err = basePathHeaderFromResponse(r, certSNHeaderName)
+	snString, err = headerFromResponse(r, certSNHeaderName)
 	if err != nil {
 		return nil, err
 	}
 
-	var sn, ok = big.NewInt(0).SetString(snString, 16)
-	if !ok {
-		return nil, fmt.Errorf("invalid serial number returned: %s", snString)
-	}
-
-	return sn, nil
+	return &snString, nil
 }
 
 // CertificateRetrieve retrieves a certificate.
@@ -168,12 +165,39 @@ func (c *Client) CertificateRetrieve(
 	return &r, nil
 }
 
+// CertificateRekey Submits a rekey request for an existing ISSUED certificate.The HVCA API is
+// asynchronous, and on success this method returns the serial number of
+// the new certificate. After a short delay, the certificate itself may be
+// retrieved via the CertificateRetrieve method.
+func (c *Client) CertificateRekey(ctx context.Context, req *CertificateRekeyRequest, id string) (*string, error) {
+	var r, err = c.makeRequest(
+		ctx,
+		endpointCertificates+"/"+url.QueryEscape(id)+pathRekey,
+		http.MethodPost,
+		req,
+		nil,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("failed to reissue certificate: %w", err)
+	}
+	var snString string
+	snString, err = headerFromResponse(r, certSNHeaderName)
+	if err != nil {
+		return nil, err
+	}
+	return &snString, nil
+}
+
 // CertificateRevoke revokes a certificate.
+const (
+	emptyKey = ""
+)
+
 func (c *Client) CertificateRevoke(
 	ctx context.Context,
 	serial *big.Int,
 ) error {
-	return c.CertificateRevokeWithReason(ctx, serial, RevocationReasonUnspecified, 0)
+	return c.CertificateRevokeWithReason(ctx, serial, RevocationReasonUnspecified, 0, emptyKey)
 }
 
 // CertificateRevokeWithReason revokes a certificate with a specified reason
@@ -185,15 +209,18 @@ func (c *Client) CertificateRevokeWithReason(
 	serial *big.Int,
 	reason RevocationReason,
 	time int64,
+	keyCompromiseAttestation string,
 ) error {
 	type certificatePatch struct {
-		RevocationReason RevocationReason `json:"revocation_reason"`
-		RevocationTime   int64            `json:"revocation_time,omitempty"`
+		RevocationReason         RevocationReason `json:"revocation_reason"`
+		RevocationTime           int64            `json:"revocation_time,omitempty"`
+		KeyCompromiseAttestation string           `json:"key_compromise_attestation,omitempty"`
 	}
 
 	var patch = certificatePatch{
-		RevocationReason: reason,
-		RevocationTime:   time,
+		RevocationReason:         reason,
+		KeyCompromiseAttestation: keyCompromiseAttestation,
+		RevocationTime:           time,
 	}
 
 	var _, err = c.makeRequest(
@@ -381,11 +408,15 @@ func (c *Client) ClaimsDomains(
 	status ClaimStatus,
 ) ([]Claim, int64, error) {
 	var claims []Claim
+	var queryParams string
+	if status != -1 {
+		queryParams = paginationString(page, perPage, time.Time{}, time.Time{}) + fmt.Sprintf("&status=%s", status)
+	} else {
+		queryParams = paginationString(page, perPage, time.Time{}, time.Time{})
+	}
 	var r, err = c.makeRequest(
 		ctx,
-		endpointClaimsDomains+
-			paginationString(page, perPage, time.Time{}, time.Time{})+
-			fmt.Sprintf("&status=%s", status),
+		endpointClaimsDomains+queryParams,
 		http.MethodGet,
 		nil,
 		&claims,
@@ -572,4 +603,26 @@ func (c *Client) claimAssert(ctx context.Context, body interface{}, id, path str
 	}
 
 	return false, fmt.Errorf("unexpected status code: %d", response.StatusCode)
+}
+
+// ClaimADNRetrieve retrieves a list of ADNs allowed for given domain
+func (c *Client) ClaimADNRetrieve(ctx context.Context, id string) ([]string, error) {
+	var adns []string
+	var response, err = c.makeRequest(
+		ctx,
+		endpointClaimsDomains+"/"+url.QueryEscape(id)+pathDNS,
+		http.MethodGet,
+		nil,
+		&adns,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	switch response.StatusCode {
+	case http.StatusOK:
+		return adns, nil
+	}
+
+	return nil, fmt.Errorf("unexpected status code: %d", response.StatusCode)
 }
