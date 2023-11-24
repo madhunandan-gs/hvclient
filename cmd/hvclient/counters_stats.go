@@ -21,7 +21,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/globalsign/hvclient"
+	"github.com/madhunandan-gs/hvclient"
 )
 
 // countIssued outputs the total count of certificates issued.
