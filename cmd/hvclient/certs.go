@@ -125,7 +125,8 @@ func rekeyCert(clnt *hvclient.Client, serialNumber string) error {
 
 	var sn *string
 	if sn, err = clnt.CertificateRekey(ctx, req, serialNumber); err != nil {
-		return fmt.Errorf("couldn't obtain certificate: %v", err)
+		fmt.Println(err)
+		return fmt.Errorf("couldn't reissue certificate: %v", err)
 	}
 
 	fmt.Println("Reissued Certificate :", *sn)
