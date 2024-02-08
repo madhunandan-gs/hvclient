@@ -347,6 +347,7 @@ func (c *Client) makeRequestWithHeaders(
 	ctx context.Context,
 	path string,
 	method string,
+	headers map[string]string,
 	in interface{},
 	out interface{},
 ) (*http.Response, error) {
@@ -396,7 +397,10 @@ func (c *Client) makeRequestWithHeaders(
 			request.Header.Set(httputils.AuthorizationHeader, "Bearer "+c.GetToken())
 		}
 
-		request.Header.Set("mode", "dry-run")
+		// Set custom headers
+		for key, value := range headers {
+		request.Header.Set(key, value)
+	}
 
 		// Execute the request.
 		if response, err = c.HTTPClient.Do(request); err != nil {

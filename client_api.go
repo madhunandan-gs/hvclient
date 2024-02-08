@@ -148,12 +148,14 @@ func (c *Client) CertificateRequest(
 func (c *Client) ValidateSANs(
 	ctx context.Context,
 	req *Request,
+	headers map[string]string,
 ) (*http.Response, error) {
 
 	var r, err = c.makeRequestWithHeaders(
 		ctx,
 		endpointCertificates,
 		http.MethodPost,
+		headers,
 		req,
 		nil,
 	)
