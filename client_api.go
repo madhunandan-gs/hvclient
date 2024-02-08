@@ -145,7 +145,7 @@ func (c *Client) CertificateRequest(
 	return &snString, nil
 }
 
-func (c *Client) validateSANs(
+func (c *Client) ValidateSANs(
 	ctx context.Context,
 	req *Request,
 ) (*http.Response, error) {
