@@ -27,10 +27,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/globalsign/hvclient"
-	"github.com/globalsign/hvclient/internal/httputils"
-	"github.com/globalsign/hvclient/internal/pki"
 	"github.com/go-chi/chi"
+	"github.com/madhunandan-gs/hvclient"
+	"github.com/madhunandan-gs/hvclient/internal/httputils"
+	"github.com/madhunandan-gs/hvclient/internal/pki"
 )
 
 // Note: mocking up the entire HVCA API service seems a little extreme, and

@@ -145,6 +145,25 @@ func (c *Client) CertificateRequest(
 	return &snString, nil
 }
 
+func (c *Client) validateSANs(
+	ctx context.Context,
+	req *Request,
+) (*http.Response, error) {
+
+	var r, err = c.makeRequestWithHeaders(
+		ctx,
+		endpointCertificates,
+		http.MethodPost,
+		req,
+		nil,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return r, nil
+}
+
 // CertificateRetrieve retrieves a certificate.
 func (c *Client) CertificateRetrieve(
 	ctx context.Context,
