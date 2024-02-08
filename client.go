@@ -399,7 +399,7 @@ func (c *Client) makeRequestWithHeaders(
 
 		// Set custom headers
 		for key, value := range headers {
-		request.Header.Set(key, value)
+		request.Header.Add(key, value)
 	}
 
 		// Execute the request.
