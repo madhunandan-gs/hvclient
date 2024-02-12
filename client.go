@@ -135,6 +135,14 @@ func (c *Client) makeRequest(
 		if response, err = c.HTTPClient.Do(request); err != nil {
 			return nil, fmt.Errorf("failed to execute HTTP request: %w", err)
 		}
+		body1, err1 := io.ReadAll(response.Body)
+		if err1 != nil {
+    	fmt.Println("Error reading response body:", err1) 	
+		}
+		fmt.Println("Response body:", string(body1))
+
+
+
 		fmt.Println("response.Body : ", response.Body)  //////////////////////////////////////////////////////////////////////////
 		defer httputils.ConsumeAndCloseResponseBody(response)
 
