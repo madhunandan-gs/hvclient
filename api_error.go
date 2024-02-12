@@ -28,11 +28,13 @@ import (
 type APIError struct {
 	StatusCode  int
 	Description string
+	Errors      map[string]string // Additional error details
 }
 
 // hvcaError is the format of an HVCA error HTTP response body.
 type hvcaError struct {
 	Description string `json:"description"`
+	Errors map[string]string `json:"errors,omitempty"`
 }
 
 // Error returns a string representation of the error.
@@ -63,5 +65,5 @@ func NewAPIError(r *http.Response) APIError {
 		return APIError{StatusCode: r.StatusCode, Description: "unknown API error"}
 	}
 
-	return APIError{StatusCode: r.StatusCode, Description: hvErr.Description}
+	return APIError{StatusCode: r.StatusCode, Description: hvErr.Description, Errors: hvErr.Errors}
 }

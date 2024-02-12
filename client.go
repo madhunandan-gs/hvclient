@@ -139,11 +139,10 @@ func (c *Client) makeRequest(
 		if err1 != nil {
     	fmt.Println("Error reading response body:", err1) 	
 		}
+		response.Body.Close()
+
 		fmt.Println("Response body:", string(body1))
 
-
-
-		fmt.Println("response.Body : ", response.Body)  //////////////////////////////////////////////////////////////////////////
 		defer httputils.ConsumeAndCloseResponseBody(response)
 
 		// HVCA doesn't return any 3XX HTTP status codes, so treat everything outside
