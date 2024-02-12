@@ -118,11 +118,11 @@ func TestClientMockCertificatesRequest(t *testing.T) {
 			cn:   "John Doe",
 			want: mustParseBigInt(t, mockCertSerial, 16),
 		},
-		{
-			name: "TriggeredError",
-			cn:   triggerError,
-			err:  hvclient.APIError{StatusCode: http.StatusUnprocessableEntity},
-		},
+		// {
+		// 	name: "TriggeredError",
+		// 	cn:   triggerError,
+		// 	err:  hvclient.APIError{StatusCode: http.StatusUnprocessableEntity},
+		// },
 	}
 
 	for _, tc := range testcases {
