@@ -161,6 +161,7 @@ func (c *Client) ValidateSANs(
 		nil,
 	)
 	if err != nil {
+		fmt.Println("Error from HVclient", err)
 		return nil, err
 	}
 
