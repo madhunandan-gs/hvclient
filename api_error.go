@@ -39,7 +39,7 @@ type hvcaError struct {
 
 // Error returns a string representation of the error.
 func (e APIError) Error() string {
-	return fmt.Sprintf("%d: %s", e.StatusCode, e.Description)
+	return fmt.Sprintf("%d: %s %s", e.StatusCode, e.Description, e.Errors)
 }
 
 // NewAPIError creates a new APIError object from an HTTP response.
