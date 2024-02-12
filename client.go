@@ -135,6 +135,7 @@ func (c *Client) makeRequest(
 		if response, err = c.HTTPClient.Do(request); err != nil {
 			return nil, fmt.Errorf("failed to execute HTTP request: %w", err)
 		}
+		fmt.Println("response.Body : ", response.Body)  //////////////////////////////////////////////////////////////////////////
 		defer httputils.ConsumeAndCloseResponseBody(response)
 
 		// HVCA doesn't return any 3XX HTTP status codes, so treat everything outside
