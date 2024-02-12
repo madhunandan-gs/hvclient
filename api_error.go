@@ -48,7 +48,7 @@ func NewAPIError(r *http.Response) APIError {
 	// return a generic error if that's not the content type we have.
 	var err = httputils.VerifyResponseContentType(r, httputils.ContentTypeProblemJSON)
 	if err != nil {
-		return APIError{StatusCode: r.StatusCode, Description: "unknown API error"}
+		return APIError{StatusCode: r.StatusCode, Description: "unknown API error 1"}
 	}
 
 	// Read and unmarshal the response body. Return a generic error on
@@ -56,13 +56,13 @@ func NewAPIError(r *http.Response) APIError {
 	var data []byte
 	data, err = ioutil.ReadAll(r.Body)
 	if err != nil {
-		return APIError{StatusCode: r.StatusCode, Description: "unknown API error"}
+		return APIError{StatusCode: r.StatusCode, Description: "unknown API error 2"}
 	}
 
 	var hvErr hvcaError
 	err = json.Unmarshal(data, &hvErr)
 	if err != nil {
-		return APIError{StatusCode: r.StatusCode, Description: "unknown API error"}
+		return APIError{StatusCode: r.StatusCode, Description: "unknown API error 3"}
 	}
 
 	return APIError{StatusCode: r.StatusCode, Description: hvErr.Description, Errors: hvErr.Errors}
