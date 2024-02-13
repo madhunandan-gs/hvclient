@@ -113,7 +113,7 @@ func (c *Client) makeRequest(
 			request.Header.Add(key, value)
 		}
 
-		// Set custom headers which is passed as an argument 
+		// Add custom headers which are passed as arguments 
 		for key, value := range headers {
 			request.Header.Add(key, value)
 		}
