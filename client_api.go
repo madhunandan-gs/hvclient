@@ -152,7 +152,7 @@ func (c *Client) ValidateSANs(
 	headers map[string]string,
 ) (*http.Response, error) {
 
-	var r, err = c.makeRequest(
+	var response, err = c.makeRequest(
 		ctx,
 		endpointCertificates,
 		http.MethodPost,
@@ -164,7 +164,7 @@ func (c *Client) ValidateSANs(
 		return nil, err
 	}
 
-	return r, nil
+	return response, nil
 }
 
 // CertificateRetrieve retrieves a certificate.
