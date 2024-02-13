@@ -23,7 +23,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/madhunandan-gs/hvclient"
+	"github.com/globalsign/hvclient"
 )
 
 func TestCertMetaMarshalJSON(t *testing.T) {

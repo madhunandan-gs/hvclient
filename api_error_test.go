@@ -23,7 +23,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/madhunandan-gs/hvclient/internal/httputils"
+	"github.com/globalsign/hvclient/internal/httputils"
 )
 
 // errReader implements io.Reader and always returns an error.

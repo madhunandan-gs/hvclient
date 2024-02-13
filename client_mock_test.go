@@ -24,8 +24,8 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/madhunandan-gs/hvclient"
-	"github.com/madhunandan-gs/hvclient/internal/pki"
+	"github.com/globalsign/hvclient"
+	"github.com/globalsign/hvclient/internal/pki"
 )
 
 func TestClientMockNew(t *testing.T) {

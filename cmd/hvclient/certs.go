@@ -22,7 +22,7 @@ import (
 	"math/big"
 	"os"
 
-	"github.com/madhunandan-gs/hvclient"
+	"github.com/globalsign/hvclient"
 )
 
 // retrieveCert outputs the certificate with the specified serial

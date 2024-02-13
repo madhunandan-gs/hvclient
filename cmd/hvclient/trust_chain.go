@@ -20,8 +20,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/madhunandan-gs/hvclient"
-	"github.com/madhunandan-gs/hvclient/internal/pki"
+	"github.com/globalsign/hvclient"
+	"github.com/globalsign/hvclient/internal/pki"
 )
 
 // trustChain outputs the chain of trust for the certificates issued

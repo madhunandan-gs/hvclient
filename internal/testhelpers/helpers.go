@@ -28,7 +28,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/madhunandan-gs/hvclient/internal/pki"
+	"github.com/globalsign/hvclient/internal/pki"
 )
 
 const (
