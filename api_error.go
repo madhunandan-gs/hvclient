@@ -25,7 +25,7 @@ import (
 )
 
 // APIError is an error returned by the HVCA HTTP API.
-type APIError struct {
+type APIError 	struct {
 	StatusCode  int
 	Description string
 	Errors      map[string]string // Additional error details
@@ -33,8 +33,8 @@ type APIError struct {
 
 // hvcaError is the format of an HVCA error HTTP response body.
 type hvcaError struct {
-	Description string `json:"description"`
-	Errors map[string]string `json:"errors,omitempty"`
+	Description string 		 		`json:"description"`
+	Errors 		map[string]string 	`json:"errors,omitempty"`
 }
 
 // Error returns a string representation of the error.
@@ -48,7 +48,7 @@ func NewAPIError(r *http.Response) APIError {
 	// return a generic error if that's not the content type we have.
 	var err = httputils.VerifyResponseContentType(r, httputils.ContentTypeProblemJSON)
 	if err != nil {
-		return APIError{StatusCode: r.StatusCode, Description: "unknown API error 1"}
+		return APIError{StatusCode: r.StatusCode, Description: "unknown API error"}
 	}
 
 	// Read and unmarshal the response body. Return a generic error on
@@ -56,13 +56,13 @@ func NewAPIError(r *http.Response) APIError {
 	var data []byte
 	data, err = ioutil.ReadAll(r.Body)
 	if err != nil {
-		return APIError{StatusCode: r.StatusCode, Description: "unknown API error 2"}
+		return APIError{StatusCode: r.StatusCode, Description: "unknown API error"}
 	}
 
 	var hvErr hvcaError
 	err = json.Unmarshal(data, &hvErr)
 	if err != nil {
-		return APIError{StatusCode: r.StatusCode, Description: "unknown API error 3"}
+		return APIError{StatusCode: r.StatusCode, Description: "unknown API error"}
 	}
 
 	return APIError{StatusCode: r.StatusCode, Description: hvErr.Description, Errors: hvErr.Errors}

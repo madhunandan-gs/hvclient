@@ -18,7 +18,6 @@ package hvclient_test
 import (
 	"context"
 	"errors"
-	"fmt"
 	"math/big"
 	"net/http"
 	"testing"
@@ -110,19 +109,19 @@ func TestClientMockCertificatesRequest(t *testing.T) {
 	var testcases = []struct {
 		name string
 		cn   string
-		want *big.Int
+		want string
 		err  error
 	}{
 		{
 			name: "OK",
 			cn:   "John Doe",
-			want: mustParseBigInt(t, mockCertSerial, 16),
+			want: mockCertSerialLocation,
 		},
-		// {
-		// 	name: "TriggeredError",
-		// 	cn:   triggerError,
-		// 	err:  hvclient.APIError{StatusCode: http.StatusUnprocessableEntity},
-		// },
+		{
+			name: "TriggeredError",
+			cn:   triggerError,
+			err:  hvclient.APIError{StatusCode: http.StatusUnprocessableEntity},
+		},
 	}
 
 	for _, tc := range testcases {
@@ -163,8 +162,8 @@ func TestClientMockCertificatesRequest(t *testing.T) {
 				return
 			}
 
-			if fmt.Sprintf("%X", got) != mockCertSerial {
-				t.Fatalf("got %X, want %s", got, mockCertSerial)
+			if *got != tc.want {
+				t.Fatalf("got %s, want %s", *got, tc.want)
 			}
 		})
 	}

@@ -133,6 +133,7 @@ const (
 	mockAPIKey              = "mock_api_key"
 	mockAPISecret           = "mock_api_secret"
 	mockCertSerial          = "741DAF9EC2D5F7DC"
+	mockCertSerialLocation  = "http://local/certificates/741DAF9EC2D5F7DC"
 	mockCounterIssued       = 72
 	mockCounterRevoked      = 14
 	mockClaimDomainVerified = "verified.com."
