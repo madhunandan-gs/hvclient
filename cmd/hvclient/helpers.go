@@ -27,8 +27,8 @@ import (
 
 	"golang.org/x/crypto/ssh/terminal"
 
-	"github.com/globalsign/hvclient"
-	"github.com/globalsign/hvclient/internal/oids"
+	"github.com/madhunandan-gs/hvclient"
+	"github.com/madhunandan-gs/hvclient/internal/oids"
 )
 
 // getPasswordFromTerminal does exactly what it says on the tin. If confirm

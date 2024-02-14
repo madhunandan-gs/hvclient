@@ -24,8 +24,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/globalsign/hvclient/internal/config"
-	"github.com/globalsign/hvclient/internal/pki"
+	"github.com/madhunandan-gs/hvclient/internal/config"
+	"github.com/madhunandan-gs/hvclient/internal/pki"
 )
 
 // Config is a configuration object for an HVCA client.

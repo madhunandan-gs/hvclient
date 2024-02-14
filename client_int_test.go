@@ -36,8 +36,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/globalsign/hvclient"
-	"github.com/globalsign/hvclient/internal/testhelpers"
+	"github.com/madhunandan-gs/hvclient"
+	"github.com/madhunandan-gs/hvclient/internal/testhelpers"
 )
 
 const (

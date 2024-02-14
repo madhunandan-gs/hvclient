@@ -23,8 +23,8 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/globalsign/hvclient"
-	"github.com/globalsign/hvclient/internal/testhelpers"
+	"github.com/madhunandan-gs/hvclient"
+	"github.com/madhunandan-gs/hvclient/internal/testhelpers"
 )
 
 func TestCheckOneValue(t *testing.T) {

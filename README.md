@@ -1,7 +1,7 @@
 # hvclient
 
-[![GoDoc](https://godoc.org/github.com/globalsign/hvclient?status.svg)](https://godoc.org/github.com/globalsign/hvclient)
-[![Build Status](https://github.com/globalsign/hvclient/actions/workflows/go.yml/badge.svg)](https://github.com/globalsign/hvclient/actions/workflows/go.yml)
+[![GoDoc](https://godoc.org/github.com/madhunandan-gs/hvclient?status.svg)](https://godoc.org/github.com/madhunandan-gs/hvclient)
+[![Build Status](https://github.com/madhunandan-gs/hvclient/actions/workflows/go.yml/badge.svg)](https://github.com/madhunandan-gs/hvclient/actions/workflows/go.yml)
 
 Package hvclient provides an interface to the [GlobalSign Atlas Certificate
 Management API](https://www.globalsign.com/en/resources/apis/api-documentation/globalsign_atlas_certificate_management_api.html).
@@ -9,7 +9,7 @@ Management API](https://www.globalsign.com/en/resources/apis/api-documentation/g
 ## Installation
 
 ```
-go get github.com/globalsign/hvclient
+go get github.com/madhunandan-gs/hvclient
 ```
 
 The `cmd/hvclient` directory contains a command line interface utility.

@@ -22,7 +22,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/globalsign/hvclient"
+	"github.com/madhunandan-gs/hvclient"
 )
 
 func TestClaimLogEntryMarshalJSON(t *testing.T) {

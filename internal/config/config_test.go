@@ -20,7 +20,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/globalsign/hvclient/internal/config"
+	"github.com/madhunandan-gs/hvclient/internal/config"
 )
 
 func TestConfigNewFromFile(t *testing.T) {

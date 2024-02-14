@@ -20,7 +20,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/globalsign/hvclient/internal/httputils"
+	"github.com/madhunandan-gs/hvclient/internal/httputils"
 )
 
 func TestVerifyRequestContentType(t *testing.T) {

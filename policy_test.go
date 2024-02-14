@@ -23,7 +23,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/globalsign/hvclient"
+	"github.com/madhunandan-gs/hvclient"
 )
 
 var testPolicyFullJSON = `{
