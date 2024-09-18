@@ -307,6 +307,7 @@ func (c *Client) Policy(ctx context.Context) (*Policy, error) {
 		&pol,
 	)
 	if err != nil {
+		fmt.Println("Error in Policy", err)
 		return nil, err
 	}
 

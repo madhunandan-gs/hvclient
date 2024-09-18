@@ -132,9 +132,12 @@ func (c *Client) makeRequest(
 		}
 
 		// Execute the request.
-		if response, err = c.HTTPClient.Do(request); err != nil {
+		response, err = c.HTTPClient.Do(request) 
+		if err != nil {
+			fmt.Println("Error in HTTPClient.Do: ", err)
 			return nil, fmt.Errorf("failed to execute HTTP request: %w", err)
 		}
+		fmt.Println("Response: ", response)
 
 		defer httputils.ConsumeAndCloseResponseBody(response)
 
